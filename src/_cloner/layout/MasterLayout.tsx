@@ -36,7 +36,7 @@ const MasterLayout: FC<WithChildren> = ({children}) => {
           <HeaderWrapper />
 
           <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
-            <Toolbar />
+            {/* <Toolbar /> */}
             <div
               className={clsx(
                 'd-flex flex-column-fluid align-items-start',

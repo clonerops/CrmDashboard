@@ -4,6 +4,7 @@ import {MasterLayout} from '../../_cloner/layout/MasterLayout'
 import {MenuTestPage} from '../pages/MenuTestPage'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
+import DashboardEsale from '../modules/esale/DashboardEsale'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -15,6 +16,7 @@ const PrivateRoutes = () => {
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='dashboard-esale' element={<DashboardEsale />} />
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* Lazy Modules */}

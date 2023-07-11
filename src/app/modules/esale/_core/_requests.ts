@@ -1,0 +1,81 @@
+import {esaleHttp} from '../../../../_cloner/helpers/axiosConfig'
+import {SaleByProductPriorityReportRequest, SaleByProductReportRequest, SaleReportRequest} from './_models'
+
+const getSaleTotalTypes = async () => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleTotalTypes')
+  return data
+}
+const getSaleTotalTypeDetails = async (id: number) => {
+  const {data} = await esaleHttp.get(
+    `LotteryWinnerReport/GetSaleTotalTypeDetails?saleTotalTypeId=${id}`
+  )
+  return data
+}
+
+const getDeliverDates = async () => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetDeliverDates')
+  return data
+}
+
+const getWinnerTypes = async () => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetWinnerTypes')
+  return data
+}
+
+// Reports
+const getSaleReport = async (formData: SaleReportRequest) => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleStatisticsReport', {
+    headers: {
+      saletypeId: formData.saletypeId,
+      saleTotalTypeDetailId: formData.saleTotalTypeDetailId,
+      isJavani: formData.isJavani,
+    },
+  })
+  return data
+}
+
+const getSaleByProductReport = async (formData: SaleByProductReportRequest) => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleStatisticsByCarTypeReport', {
+    headers: {
+      saletypeId: formData.saletypeId,
+      saleTotalTypeDetailId: formData.saleTotalTypeDetailId,
+      isJavani: formData.isJavani,
+      WinnerType: formData.winnerType,
+    },
+  })
+  return data
+}
+const getSaleByProductPriorityReport = async (formData: SaleByProductPriorityReportRequest) => {
+  const {data} = await esaleHttp.get(
+    'LotteryWinnerReport/GetSaleStatisticsByPriorityProductReport',
+    {
+      headers: {
+        saletypeId: formData.saletypeId,
+        saleTotalTypeDetailId: formData.saleTotalTypeDetailId,
+        priority: formData.priority,
+        isJavani: formData.isJavani,
+        WinnerType: formData.WinnerType,
+      },
+    }
+  )
+  return data
+}
+const getSaleByProductPriorityAndSaleDetailReport = async (isJavani: number = -1) => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleStatByDeliverDate', {
+    headers: {
+      isJavani,
+    },
+  })
+  return data
+}
+
+export {
+  getSaleTotalTypes,
+  getSaleTotalTypeDetails,
+  getDeliverDates,
+  getWinnerTypes,
+  getSaleReport,
+  getSaleByProductReport,
+  getSaleByProductPriorityReport,
+  getSaleByProductPriorityAndSaleDetailReport,
+}

@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: Yekan_reqular;
+    src: url( '../fonts/YekanBakhFaNum-Regular.ttf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Yekan_bold;
+    src: url( '../fonts/YekanBakhFaNum-Bold.ttf');
+    font-style: normal;
+}
+h1, h2, h3, h4, h5, h6, span, p, a {
+    font-family: Yekan_reqular;
+}
