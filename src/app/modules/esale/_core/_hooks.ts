@@ -1,6 +1,10 @@
-import {useMutation, useQuery} from '@tanstack/react-query'
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import * as api from './_requests'
-import { SaleByProductPriorityReportRequest, SaleByProductReportRequest, SaleReportRequest } from './_models'
+import {
+  SaleByProductPriorityReportRequest,
+  SaleByProductReportRequest,
+  SaleReportRequest,
+} from './_models'
 
 const useGetSaleTotalTypes = () => {
   return useQuery(['saleTotalTypes'], api.getSaleTotalTypes)
@@ -19,11 +23,23 @@ const useGetDeliverDates = () => {
 const useGetWinnerTypes = () => {
   return useQuery(['winnerTypes'], api.getWinnerTypes)
 }
+const useGetSaleMountReport = () => {
+  return useQuery(['saleReport'], api.getSaleMountReport)
+}
 
 const useGetSaleReport = () => {
-  return useMutation((formData: SaleReportRequest) => {
-    return api.getSaleReport(formData)
-  })
+  const queryClient = useQueryClient()
+  return useMutation(
+    (formData: SaleReportRequest) => {
+      return api.getSaleReport(formData)
+    },
+    {
+      onSuccess: () => {
+        const saleReport = queryClient.getQueryData(['saleReport'])
+        queryClient.setQueriesData(["saleReport"], saleReport);
+      },
+    }
+  )
 }
 
 const useGetSaleByProductReport = () => {
@@ -48,7 +64,8 @@ export {
   useGetDeliverDates,
   useGetWinnerTypes,
   useGetSaleReport,
+  useGetSaleMountReport,
   useGetSaleByProductReport,
   useGetSaleByProductPriorityReport,
-  useGetSaleByProductPriorityAndSaleDetailReport
+  useGetSaleByProductPriorityAndSaleDetailReport,
 }

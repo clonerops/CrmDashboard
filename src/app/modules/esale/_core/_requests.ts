@@ -23,6 +23,16 @@ const getWinnerTypes = async () => {
 }
 
 // Reports
+const getSaleMountReport = async () => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleStatisticsReport', {
+    headers: {
+      saletypeId: 2,
+      saleTotalTypeDetailId: 0,
+      isJavani: -1,
+    },
+  })
+  return data
+}
 const getSaleReport = async (formData: SaleReportRequest) => {
   const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleStatisticsReport', {
     headers: {
@@ -75,6 +85,7 @@ export {
   getDeliverDates,
   getWinnerTypes,
   getSaleReport,
+  getSaleMountReport,
   getSaleByProductReport,
   getSaleByProductPriorityReport,
   getSaleByProductPriorityAndSaleDetailReport,

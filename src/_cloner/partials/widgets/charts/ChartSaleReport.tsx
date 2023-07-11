@@ -1,34 +1,36 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
+import {useGetSaleMountReport} from '../../../../app/modules/esale/_core/_hooks'
+import axios from 'axios'
 
 type Props = {
   className: string
 }
 
 const ChartSaleReport: React.FC<Props> = ({className}) => {
+  const {data: saleMountReportData} = useGetSaleMountReport()
+
+
+
 
   function getChartOptions(height: number): ApexOptions {
     const labelColor = getCSSVariableValue('--kt-gray-500')
     const borderColor = getCSSVariableValue('--kt-gray-200')
     const baseColor = getCSSVariableValue('--kt-primary')
     const secondaryColor = getCSSVariableValue('--kt-gray-300')
-  
+
     return {
       series: [
         {
           name: 'Net Profit',
-          data: [44, 55, 57, 56, 61, 58],
-        },
-        {
-          name: 'Revenue',
-          data: [76, 85, 101, 98, 87, 105],
+          data: saleMountReportData?.map((item: any) => item.count),
         },
       ],
       chart: {
-        fontFamily: 'inherit',
+        fontFamily: 'Yekan_reqular',
         type: 'bar',
         height: height,
         width: '100%',
@@ -39,7 +41,7 @@ const ChartSaleReport: React.FC<Props> = ({className}) => {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '80%',
+          columnWidth: '50%',
           borderRadius: 5,
         },
       },
@@ -55,7 +57,7 @@ const ChartSaleReport: React.FC<Props> = ({className}) => {
         colors: ['transparent'],
       },
       xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: saleMountReportData?.map((item: any) => item.applicantTypeDesc),
         axisBorder: {
           show: false,
         },
@@ -123,9 +125,6 @@ const ChartSaleReport: React.FC<Props> = ({className}) => {
       },
     }
   }
-  
-
-
 
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
@@ -156,10 +155,9 @@ const ChartSaleReport: React.FC<Props> = ({className}) => {
   }
 
   return (
-        // <div ref={chartRef} id='kt_charts_widget_1_chart' className='md:w-[450px] md:h-[350px] h-[350px] w-[100%]' />
-        <div ref={chartRef} id='kt_charts_widget_1_chart' className='h-[350px] w-[100%]' />
+    // <div ref={chartRef} id='kt_charts_widget_1_chart' className='md:w-[450px] md:h-[350px] h-[350px] w-[100%]' />
+    <div ref={chartRef} id='kt_charts_widget_1_chart' className='h-[350px] w-[100%]' />
   )
 }
 
 export {ChartSaleReport}
-
