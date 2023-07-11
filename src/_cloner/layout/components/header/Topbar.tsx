@@ -9,8 +9,7 @@ import {
 
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
   toolbarButtonHeightClass = 'btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40p',
-  toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px',
-  toolbarButtonIconSizeClass = 'svg-icon-1'
+  toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px'
 
 const Topbar: FC = () => {
   return (

@@ -1,4 +1,3 @@
-import {PageTitle} from '../../../_cloner/layout/core'
 import {
   MixedWidget2,
   MixedWidget10,
