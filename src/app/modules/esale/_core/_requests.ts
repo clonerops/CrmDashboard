@@ -64,7 +64,7 @@ const getSaleByProductPriorityReport = async (formData: SaleByProductPriorityRep
         saleTotalTypeDetailId: formData.saleTotalTypeDetailId,
         priority: formData.priority,
         isJavani: formData.isJavani,
-        WinnerType: formData.WinnerType,
+        winnerType: formData.winnerType,
       },
     }
   )

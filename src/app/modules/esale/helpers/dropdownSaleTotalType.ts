@@ -16,3 +16,21 @@ export const dropdownSaleTotalTypeDetails = (data: any) => {
         })
     );
 };
+export const dropdownSaleTotalWinnerType = (data: any) => {
+    return (
+        data &&
+        data?.map((obj: { id: any; totalTypeDesc: any }): any => {
+            const { id, totalTypeDesc } = obj;
+            return { value: id, label: totalTypeDesc };
+        })
+    );
+};
+export const dropdownTotalDate = (data: any) => {
+    return (
+        data &&
+        data?.map((obj: { id: any; deliverDateDesc: any }): any => {
+            const { id, deliverDateDesc } = obj;
+            return { value: id, label: deliverDateDesc };
+        })
+    );
+};

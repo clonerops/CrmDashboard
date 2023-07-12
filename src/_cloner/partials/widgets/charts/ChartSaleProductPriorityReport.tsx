@@ -8,7 +8,7 @@ interface IProps {
   isError: boolean
 }
 
-const ChartSaleReport2: FC<IProps> = ({data, isLoading, isError}) => {
+const ChartSaleProductPriorityReport: FC<IProps> = ({data, isLoading, isError}) => {
   const labelColor = getCSSVariableValue('--kt-gray-500')
   const borderColor = getCSSVariableValue('--kt-gray-200')
   const baseColor = getCSSVariableValue('--kt-primary')
@@ -35,7 +35,7 @@ const ChartSaleReport2: FC<IProps> = ({data, isLoading, isError}) => {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: '20%',
+        columnWidth: '50%',
         distributed: true,
         borderRadius: 5,
         marginLeft: 20,
@@ -45,7 +45,7 @@ const ChartSaleReport2: FC<IProps> = ({data, isLoading, isError}) => {
       show: false,
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       fontFamily: 'Yekan_reqular',
       formatter: function (val: any) {
         // return '$' + val + ' thousands'
@@ -58,10 +58,11 @@ const ChartSaleReport2: FC<IProps> = ({data, isLoading, isError}) => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: data?.map((item: any) => item.applicantTypeDesc),
+      categories: data?.map((item: any) => item.car_type_desc),
       axisBorder: {
         show: false,
       },
+      position: 'bottom',
       axisTicks: {
         show: false,
       },
@@ -131,14 +132,15 @@ const ChartSaleReport2: FC<IProps> = ({data, isLoading, isError}) => {
     colors: ['#546E7A', '#d4526e', '#13d8aa', '#A5978B'],
   }
 
+
   const series = [
     {
       name: 'تعداد متقاضیان',
-      data: data?.map((item: any) => item.count),
+      data: data?.map((item: any) => item.cnt),
     },
   ]
 
   return <ReactApexChart options={options} series={series} type='bar' height={350} />
 }
 
-export default ChartSaleReport2
+export default ChartSaleProductPriorityReport
