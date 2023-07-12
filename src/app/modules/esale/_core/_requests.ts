@@ -94,6 +94,14 @@ const getSaleDetailsReport = async (formData: SaleReportRequest) => {
   })
   return data
 }
+const getSaleTotalDetailReport = async (isJavani: number = -1) => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleReportBySaleTotalType', {
+    headers: {
+      isJavani,
+    },
+  })
+  return data
+}
 
 export {
   getSaleTotalTypes,
@@ -106,4 +114,5 @@ export {
   getSaleByProductPriorityReport,
   getSaleByProductPriorityAndSaleDetailReport,
   getSaleDetailsReport,
+  getSaleTotalDetailReport
 }

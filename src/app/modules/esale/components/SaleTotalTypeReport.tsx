@@ -63,11 +63,6 @@ const SaleTotalTypeReport = () => {
     saleReport(formData)
   }
 
-  const handleModal = () => {
-    setIsOpen(true)
-
-  }
-
 
   return (
     <>
@@ -89,7 +84,7 @@ const SaleTotalTypeReport = () => {
               placeholder=''
             />
             <div className='flex justify-center items-center'>
-              <button onClick={handleModal}>مشاهده جزئیات</button>
+              <button onClick={() => setIsOpen(true)}>مشاهده جزئیات</button>
             </div>
           </div>
           <RadioGroupSaleType onChange={onChangeRadioSelect} />

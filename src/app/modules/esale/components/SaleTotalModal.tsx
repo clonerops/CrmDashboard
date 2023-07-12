@@ -18,7 +18,6 @@ interface IProps {
 }
 
 const SaleTotalModal: FC<IProps> = ({isOpen, setIsOpen}) => {
-  const [tableData, setTableDate] = useState([])
   const [radioSelect, setRadioSelect] = useState(-1)
   const [totalTypesSelect, setTotalTypesSelect] = useState<any>({value: 2, label: 'فروش یکپارچه'})
   const [totalTypeDetailSelect, setTotalTypeDetailSelect] = useState<any>({value: 0, label: 'همه'})
@@ -67,31 +66,6 @@ const SaleTotalModal: FC<IProps> = ({isOpen, setIsOpen}) => {
       saleReport(formData)
   
   }, [])
-
-//   useEffect(() => {
-//     const newObject = {
-//       caR_TYPE_DESC: 'جمع کل',
-//       calltopaY_CNT: data.reduce((accumulator: any, currentValue: any) => {
-//         return accumulator + currentValue.calltopaY_CNT
-//       }, 0),
-//       paymentwaitinG_CNT: data.reduce((accumulator: any, currentValue: any) => {
-//         return accumulator + currentValue.paymentwaitinG_CNT
-//       }, 0),
-//       unverifiedapplicanT_CNT: data.reduce((accumulator: any, currentValue: any) => {
-//         return accumulator + currentValue.unverifiedapplicanT_CNT
-//       }, 0),
-//       payedcount: data.reduce((accumulator: any, currentValue: any) => {
-//         return accumulator + currentValue.payedcount
-//       }, 0),
-//       counT_ALL: data.reduce((accumulator: any, currentValue: any) => {
-//         return accumulator + currentValue.counT_ALL
-//       }, 0),
-//     }
-
-//     const dataObject: any = [...data]
-//     data.unshift(newObject)
-//     setTableDate(dataObject)
-//   }, [])
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

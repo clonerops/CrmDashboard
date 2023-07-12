@@ -65,6 +65,12 @@ const useGetSaleDetailsReport = () => {
   })
 }
 
+const useGetSaleTotalDetailsReport = () => {
+  return useMutation((isJavani: number) => {
+    return api.getSaleTotalDetailReport(isJavani)
+  })
+}
+
 
 export {
   useGetSaleTotalTypes,
@@ -76,5 +82,6 @@ export {
   useGetSaleByProductReport,
   useGetSaleByProductPriorityReport,
   useGetSaleByProductPriorityAndSaleDetailReport,
-  useGetSaleDetailsReport
+  useGetSaleDetailsReport,
+  useGetSaleTotalDetailsReport
 }
