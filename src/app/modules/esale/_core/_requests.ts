@@ -1,5 +1,9 @@
 import {esaleHttp} from '../../../../_cloner/helpers/axiosConfig'
-import {SaleByProductPriorityReportRequest, SaleByProductReportRequest, SaleReportRequest} from './_models'
+import {
+  SaleByProductPriorityReportRequest,
+  SaleByProductReportRequest,
+  SaleReportRequest,
+} from './_models'
 
 const getSaleTotalTypes = async () => {
   const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleTotalTypes')
@@ -79,6 +83,18 @@ const getSaleByProductPriorityAndSaleDetailReport = async (isJavani: number = -1
   return data
 }
 
+// Tables Details
+const getSaleDetailsReport = async (formData: SaleReportRequest) => {
+  const {data} = await esaleHttp.get('LotteryWinnerReport/GetSaleReportByCar', {
+    headers: {
+      saletypeId: formData.saletypeId,
+      saleTotalTypeDetailId: formData.saleTotalTypeDetailId,
+      isJavani: formData.isJavani,
+    },
+  })
+  return data
+}
+
 export {
   getSaleTotalTypes,
   getSaleTotalTypeDetails,
@@ -89,4 +105,5 @@ export {
   getSaleByProductReport,
   getSaleByProductPriorityReport,
   getSaleByProductPriorityAndSaleDetailReport,
+  getSaleDetailsReport,
 }

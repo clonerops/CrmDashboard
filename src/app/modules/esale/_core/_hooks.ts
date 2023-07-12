@@ -58,6 +58,14 @@ const useGetSaleByProductPriorityAndSaleDetailReport = () => {
   })
 }
 
+// Tables
+const useGetSaleDetailsReport = () => {
+  return useMutation((formData: SaleReportRequest) => {
+    return api.getSaleDetailsReport(formData)
+  })
+}
+
+
 export {
   useGetSaleTotalTypes,
   useGetSaleTotalTypeDetails,
@@ -68,4 +76,5 @@ export {
   useGetSaleByProductReport,
   useGetSaleByProductPriorityReport,
   useGetSaleByProductPriorityAndSaleDetailReport,
+  useGetSaleDetailsReport
 }
