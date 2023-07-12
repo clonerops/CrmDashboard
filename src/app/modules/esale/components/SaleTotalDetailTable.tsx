@@ -54,7 +54,7 @@ const SaleTotalDetailTable: React.FC<Props> = ({className, data, isLoading, isEr
             {/* begin::Table head */}
             <thead>
               <tr className='fw-bold text-muted'>
-                <th className='text-start'>محصول</th>
+                <th className='text-start'>طرح</th>
                 <th className='text-start'>فراخوان واریز</th>
                 <th className='text-start'>منتظر فراخوان</th>
                 <th className='text-start'>غیر مجاز</th>

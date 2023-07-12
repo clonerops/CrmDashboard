@@ -4,12 +4,15 @@ import ProfessionalSelect from './ProfessionalSelect'
 import RadioGroupSaleType from './RadioGroupSaleType'
 import {
   useGetSaleDetailsReport,
+  useGetSaleTotalExcel,
   useGetSaleTotalTypeDetails,
   useGetSaleTotalTypes,
 } from '../_core/_hooks'
 import {dropdownSaleTotalType, dropdownSaleTotalTypeDetails} from '../helpers/dropdownSaleTotalType'
 import {TablesWidget1, TablesWidget9} from '../../../../_cloner/partials/widgets'
 import {SaleTotalTable} from './SaleTotalTable'
+import {DownloadExcelFile} from './DownloadExcel'
+import {downloadTotalTypeExcel} from '../_core/_requests'
 
 interface IProps {
   isOpen: boolean
@@ -18,6 +21,7 @@ interface IProps {
 }
 
 const SaleTotalModal: FC<IProps> = ({isOpen, setIsOpen}) => {
+  const [excelLoading, setExcelLoading] = useState(false)
   const [radioSelect, setRadioSelect] = useState(-1)
   const [totalTypesSelect, setTotalTypesSelect] = useState<any>({value: 2, label: 'فروش یکپارچه'})
   const [totalTypeDetailSelect, setTotalTypeDetailSelect] = useState<any>({value: 0, label: 'همه'})
@@ -25,7 +29,13 @@ const SaleTotalModal: FC<IProps> = ({isOpen, setIsOpen}) => {
   const {data: saleTotalTypes} = useGetSaleTotalTypes()
 
   const {mutate: totalDetails, data: saleTotalTypeDetails} = useGetSaleTotalTypeDetails()
-  const {mutate: saleReport, data: saleReportData, isLoading, isError} = useGetSaleDetailsReport()
+  const {
+    mutate: saleReport,
+    data: saleReportData,
+    isLoading,
+    isError,
+    status,
+  } = useGetSaleDetailsReport()
 
   const onChangeTotalTypes = (selectOption: any) => {
     setTotalTypesSelect(selectOption)
@@ -59,13 +69,30 @@ const SaleTotalModal: FC<IProps> = ({isOpen, setIsOpen}) => {
 
   useEffect(() => {
     const formData = {
-        saletypeId: 2,
-        saleTotalTypeDetailId: 0,
-        isJavani: -1,
-      }
-      saleReport(formData)
-  
+      saletypeId: 2,
+      saleTotalTypeDetailId: 0,
+      isJavani: -1,
+    }
+    saleReport(formData)
   }, [])
+
+  const handleDownloadExcel = async () => {
+    setExcelLoading(true)
+    const formData = {
+      saletypeId: totalTypesSelect?.value,
+      saleTotalTypeDetailId: totalTypeDetailSelect?.value,
+      isJavani: radioSelect,
+    }
+    try {
+      const response = await downloadTotalTypeExcel(formData)
+      const outputFilename = `SaleTotalType${Date.now()}.csv`
+      DownloadExcelFile(response, outputFilename)
+      setExcelLoading(false)
+    } catch (error) {
+      console.log(error)
+      setExcelLoading(false)
+    }
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -88,7 +115,22 @@ const SaleTotalModal: FC<IProps> = ({isOpen, setIsOpen}) => {
         </div>
         <RadioGroupSaleType onChange={onChangeRadioSelect} />
 
-        <SaleTotalTable className='' data={saleReportData} isError={isError} isLoading={isLoading} />
+        <div className='flex justify-start items-start'>
+          <button
+            disabled={saleReportData === undefined}
+            onClick={handleDownloadExcel}
+            className='text-white rounded-lg bg-green-500 px-8 py-2'
+          >
+            {excelLoading ? 'در حال دانلود...' : 'دانلود خروجی اکسل'}
+          </button>
+        </div>
+
+        <SaleTotalTable
+          className=''
+          data={saleReportData}
+          isError={isError}
+          isLoading={isLoading}
+        />
       </div>
     </Modal>
   )

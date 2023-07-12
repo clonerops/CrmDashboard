@@ -36,7 +36,7 @@ const useGetSaleReport = () => {
     {
       onSuccess: () => {
         const saleReport = queryClient.getQueryData(['saleReport'])
-        queryClient.setQueriesData(["saleReport"], saleReport);
+        queryClient.setQueriesData(['saleReport'], saleReport)
       },
     }
   )
@@ -71,6 +71,18 @@ const useGetSaleTotalDetailsReport = () => {
   })
 }
 
+// Excel
+const useGetSaleTotalExcel = () => {
+  return useMutation((formData: SaleReportRequest) => {
+    return api.downloadTotalTypeExcel(formData)
+  })
+}
+
+const useGetSaleTotalDetailsExcel = () => {
+  return useMutation((isJavani: number) => {
+    return api.downloadTotalTypeDetailExcel(isJavani)
+  })
+}
 
 export {
   useGetSaleTotalTypes,
@@ -83,5 +95,7 @@ export {
   useGetSaleByProductPriorityReport,
   useGetSaleByProductPriorityAndSaleDetailReport,
   useGetSaleDetailsReport,
-  useGetSaleTotalDetailsReport
+  useGetSaleTotalDetailsReport,
+  useGetSaleTotalExcel,
+  useGetSaleTotalDetailsExcel,
 }

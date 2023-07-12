@@ -103,6 +103,30 @@ const getSaleTotalDetailReport = async (isJavani: number = -1) => {
   return data
 }
 
+// Download Excel
+const downloadTotalTypeExcel = async (formData: SaleReportRequest) => {
+  const {data} = await esaleHttp.get('LotteryWinnerFileReport/GetSaleExcelReportByCar', {
+    responseType: 'arraybuffer',
+    headers: {
+      'Content-Type': 'blob',
+      saletypeId: formData.saletypeId,
+      saleTotalTypeDetailId: formData.saleTotalTypeDetailId,
+      isJavani: formData.isJavani,
+    },
+  })
+  return data
+}
+const downloadTotalTypeDetailExcel = async (isJavani: number = -1) => {
+  const {data} = await esaleHttp.get('LotteryWinnerFileReport/GetSaleExcelReportBySaleTotalType', {
+    responseType: 'arraybuffer',
+    headers: {
+      isJavani,
+      'Content-Type': 'blob',
+    },
+  })
+  return data
+}
+
 export {
   getSaleTotalTypes,
   getSaleTotalTypeDetails,
@@ -114,5 +138,7 @@ export {
   getSaleByProductPriorityReport,
   getSaleByProductPriorityAndSaleDetailReport,
   getSaleDetailsReport,
-  getSaleTotalDetailReport
+  getSaleTotalDetailReport,
+  downloadTotalTypeExcel,
+  downloadTotalTypeDetailExcel,
 }
